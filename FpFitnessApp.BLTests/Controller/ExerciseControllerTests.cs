@@ -10,24 +10,23 @@ using FpFitnessApp.BL.Model;
 namespace FpFitnessApp.BL.Controller.Tests
 {
     [TestClass()]
-    public class EatingControllerTests
+    public class ExerciseControllerTests
     {
         [TestMethod()]
         public void AddTest()
         {
             // Arrange
             var userName = Guid.NewGuid().ToString();
-            var foodName = Guid.NewGuid().ToString();
+            var activityName = Guid.NewGuid().ToString();
             var rnd = new Random();
             var userController = new UserController(userName);
-            var eatingController = new EatingController(userController.CurrentUser);
-            var food = new Food(foodName, 100, 100, 111, 111);
-
+            var exerciseController = new ExerciseController(userController.CurrentUser);
+            var activity = new Activity(activityName, rnd.Next(10,50));
             // Act
-            eatingController.Add(food, 100);
+            exerciseController.Add(activity, DateTime.Now, DateTime.Now.AddHours(1));
 
             //Assert
-            Assert.AreEqual(food.Name, eatingController.Eating.Foods.First().Key.Name);
+            Assert.AreEqual(activityName, exerciseController.Activities.First().Name);
         }
     }
 }
